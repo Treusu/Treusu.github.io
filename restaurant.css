@@ -1,0 +1,174 @@
+/*.menu {
+  display: none;
+  border-radius: 0px;
+  border: 1px solid #ddd; 
+  padding: 32px;
+ }
+/*--Open from 10 am to 12 -
+.w3-tag.w3-xlarge { 
+  border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white; 
+  padding: 5px 10px; 
+}*/
+
+/*see menu
+.w3-button.w3-xxlarge{
+  border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white; 
+  padding: 10px 20px; 
+}
+
+#about {
+  padding: 64px; 
+  background-color: red; 
+  border-radius: 0px;
+}
+.bgimg {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/1280px-Pizza-3007395.jpg");
+  min-height: 90%;
+}
+
+.w3-bar .w3-right a {
+  margin-right: 5px;
+}
+.w3-bar .w3-right span {
+  color: white; 
+}
+.w3{
+  border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white; 
+  padding: 5px 15px; 
+}
+.opening-hours {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+}
+
+.opening-hours h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.hours-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.hours-column {
+  flex: 1;
+}
+
+.hours-column p {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+/*Menu content
+
+
+    /*sign up css
+    .signup-box {
+      margin: auto;
+      padding: 20px;
+      max-width: 500px;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      border-radius: 15px;
+    }
+    .signup-box input {
+      margin-bottom: 15px;
+      padding: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 5px;
+    }
+    .signup-box button {
+      width: 100%;
+      padding: 10px;
+      background: #8ED438;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 18px;
+    }
+
+    /*cart
+          .menu-scroll {
+      max-height: 400px;
+      overflow-y: scroll;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 10px;
+    }
+
+    .cart-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background-color: orange;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .cart-modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2000;
+      width: 80%;
+      max-width: 500px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .cart-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 20px;
+    }
+
+    .cart-modal-body {
+      margin-top: 15px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .cart-modal-footer {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .cart-item button {
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }

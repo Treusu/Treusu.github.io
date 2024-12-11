@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Slice House - Logged In</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="restaurant.css">
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+  <style>
+    body, html { 
+      height: 100%; 
+      font-family: "Open Sans", sans-serif; 
+      background: linear-gradient(45deg, #ff9a8b, #ff6a00, #ff6a00); 
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+       /* Navbar Styles */
+    .navbar {
+      font-size: 18px;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .navbar .menu {
+      display: flex;
+    }
+
+    .navbar a {
+      padding: 10px 20px;
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+    }
+
+    .navbar a:hover {
+      background-color: #ff6347;
+      color: white;
+    }
+
+    .navbar .right {
+      display: flex;
+    }
+
+    .navbar .right a {
+      margin-left: 10px;
+    }
+
+    .navbar .right span {
+      color: white;
+      margin-left: 10px;
+    }
+    .navbar .right {
+      position: relative;
+      right: 100px; /* Adjusted to avoid hiding behind the cart */
+    }
+
+    /* Styling the menu container */
+    .menu-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    /* Styling for each menu section */
+    .menu-section {
+      width: 90%;
+      max-width: 900px;
+      margin: 20px 0;
+      border-radius: 10px;
+      padding: 20px;
+      background: linear-gradient(145deg, #fff, #f0f0f0);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-section h1 {
+      text-align: center;
+      color: #333;
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+
+    .menu-section p {
+      text-align: center;
+      color: #555;
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+
+    /* Scrollable container for menu items */
+    .menu-scroll {
+      max-height: 400px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 10px;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .menu-item:last-child {
+      border-bottom: none;
+    }
+
+    .menu-item img {
+      max-width: 100px;
+      border-radius: 8px;
+      margin-right: 15px;
+    }
+
+    .menu-item h2 {
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
+
+    .menu-item p {
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    .menu-item button {
+      background-color: #ff6a00;
+      color: white;
+      padding: 6px 12px;
+      font-size: 0.9rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* Cart button styles */
+    .cart-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background-color: orange;
+      color: white;
+      padding: 8px 15px;
+      border: none;
+      border-radius: 50%;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Cart modal styles */
+    .cart-modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2000;
+      width: 70%;
+      max-width: 400px;
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .cart-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 18px;
+    }
+
+    .cart-modal-body {
+      margin-top: 10px;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .cart-item button {
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 4px 8px;
+      cursor: pointer;
+    }
+
+    .cart-modal-footer {
+      margin-top: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #totalPrice {
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    /* Contact Us Section */
+    #contact {
+      padding: 60px 0;
+      background-color: #f7f7f7;
+    }
+
+    #contact h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .contact-form button {
+      width: 100%;
+      padding: 14px;
+      background-color: #ff6a00;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .contact-form button:hover {
+      background-color: #e65c00;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="navbar-item">
+      <a href="#menu">Home</a>
+      <a href="#menu">Menu</a>
+      <a href="#contact">Contact Us</a>
+    </div>
+    <div class="navbar-item" style="float: right;">
+      <button id="cartButton" class="cart-button">🛒</button>
+      <a href="logout.php" style="color: white; padding: 10px 20px; text-decoration: none;">Log Out</a>
+    </div>
+  </div>
+
+  <!-- Menu Section -->
+  <div class="menu-container" id="menu">
+    <!-- Pizza Section -->
+    <div class="menu-section">
+      <h1>Pizza</h1>
+      <p>Here are your favorite pizza options:</p>
+      <div class="menu-scroll" id="menuItems">
+        <div class="menu-item">
+          <img src="https://images.getbento.com/accounts/c3d5c00dc56eb47e2e4b4b27d99c5c7b/media/images/44841istockphoto-1414575281-170667a.webp?w=1200&fit=crop&auto=compress,format&cs=origin&crop=focalpoint&fp-x=0.5&fp-y=0.5" alt="Margherita Pizza">
+          <div>
+            <h2>Margherita <span class="price">$12.50</span></h2>
+            <p>Fresh tomatoes, mozzarella, basil</p>
+          </div>
+          <button class="add-to-cart" data-item="Margherita" data-price="12.50">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+          <img src="https://arteflame.com/cdn/shop/articles/Quattro_Formaggi_pizza_freshly_baked_and_ready_to_enjoy.webp?v=1715287482&width=1600" alt="Formaggio" alt="Formaggio Pizza">
+          <div>
+            <h2>Formaggio <span class="price">$15.50</span></h2>
+            <p>Four cheeses (mozzarella, parmesan, pecorino, jarlsberg)</p>
+          </div>
+          <button class="add-to-cart" data-item="Formaggio" data-price="15.50">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+          <img src="https://eu.ooni.com/cdn/shop/articles/pepperoni-pizza.jpg?crop=center&height=800&v=1587043733&width=800" alt="Pepperoni Pizza">
+          <div>
+            <h2>Pepperoni <span class="price">$14.00</span></h2>
+            <p>Pepperoni, mozzarella, tomato sauce</p>
+          </div>
+          <button class="add-to-cart" data-item="Pepperoni" data-price="14.00">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+          <img src="https://www.orchidsandsweettea.com/wp-content/uploads/2019/05/Veggie-Pizza-2-of-5-e1691215701129.jpg" alt="Veggie Pizza">
+          <div>
+            <h2>Veggie <span class="price">$13.00</span></h2>
+            <p>Bell peppers, onions, olives, tomatoes, mushrooms</p>
+          </div>
+          <button class="add-to-cart" data-item="Veggie" data-price="13.00">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Salad Section -->
+    <div class="menu-section">
+      <h1>Salads</h1>
+      <p>Healthy and refreshing salads:</p>
+      <div class="menu-scroll">
+        <div class="menu-item">
+          <img src="https://itsavegworldafterall.com/wp-content/uploads/2023/04/Avocado-Caesar-Salad-FI.jpg" alt="Caesar Salad">
+          <div>
+            <h2>Caesar Salad <span class="price">$10.00</span></h2>
+            <p>Romaine lettuce, caesar dressing, croutons, parmesan cheese</p>
+          </div>
+          <button class="add-to-cart" data-item="Caesar Salad" data-price="10.00">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+          <img src="https://garlicsaltandlime.com/wp-content/uploads/2022/07/Garden-salad-thumbnail.jpg" alt="Garden Salad">
+          <div>
+            <h2>Garden Salad <span class="price">$8.50</span></h2>
+            <p>Mixed greens, cucumbers, tomatoes, olives, vinaigrette</p>
+          </div>
+          <button class="add-to-cart" data-item="Garden Salad" data-price="8.50">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Starter Section -->
+    <div class="menu-section">
+      <h1>Starters</h1>
+      <p>Delicious starters to begin your meal:</p>
+      <div class="menu-scroll">
+        <div class="menu-item">
+          <img src="https://static01.nyt.com/images/2018/12/11/dining/as-garlic-bread/as-garlic-bread-square640.jpg" alt="Garlic Bread">
+          <div>
+            <h2>Garlic Bread <span class="price">$5.00</span></h2>
+            <p>Freshly baked bread with garlic butter</p>
+          </div>
+          <button class="add-to-cart" data-item="Garlic Bread" data-price="5.00">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+          <img src="https://thehealthfulideas.com/wp-content/uploads/2021/08/Bruschetta-with-Mozzarella-1.jpg" alt="Bruschetta">
+          <div>
+            <h2>Bruschetta <span class="price">$6.00</span></h2>
+            <p>Tomato, basil, garlic on toasted bread</p>
+          </div>
+          <button class="add-to-cart" data-item="Bruschetta" data-price="6.00">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Us Section -->
+  <div id="contact">  
+    <h2>Contact Us</h2>
+    <form class="contact-form">
+      <input type="text" placeholder="Name" required>
+      <input type="email" placeholder="Email" required>
+      <textarea placeholder="Message" rows="5" required></textarea>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <!-- Cart Modal -->
+  <div class="cart-modal" id="cartModal">
+    <div class="cart-modal-header">
+      <span>Shopping Cart</span>
+      <button id="closeCart" style="font-size: 20px; background: none; border: none; color: red; cursor: pointer;">X</button>
+    </div>
+    <div class="cart-modal-body" id="cartBody">
+      <!-- Cart items will appear here -->
+    </div>
+    <div class="cart-modal-footer">
+      <span id="totalPrice">Total: ₱0.00</span>
+      <button href="Payment.html" id="checkoutBtn">Checkout</button>
+    </div>
+  </div>
+
+  <script>
+    let cart = [];
+    let totalPrice = 0;
+
+    // Add item to cart
+    $(".add-to-cart").click(function() {
+      const item = $(this).data("item");
+      const price = parseFloat($(this).data("price"));
+
+      // Add item to cart array
+      cart.push({ item, price });
+
+      // Update total price
+      totalPrice += price;
+
+      // Update cart modal
+      updateCartModal();
+    });
+
+    // Update cart modal with items and total price
+    function updateCartModal() {
+      let cartBody = $("#cartBody");
+      cartBody.empty();
+
+      cart.forEach(function(cartItem, index) {
+        cartBody.append(`
+          <div class="cart-item">
+            <span>${cartItem.item}</span>
+            <span>$${cartItem.price.toFixed(2)}</span>
+            <button class="remove-item" data-index="${index}">Remove</button>
+          </div>
+        `);
+      });
+
+      // Update total price
+      $("#totalPrice").text(`Total: ₱${totalPrice.toFixed(2)}`);
+
+      // Add remove item functionality
+      $(".remove-item").click(function() {
+        const index = $(this).data("index");
+
+        // Remove item from cart array
+        totalPrice -= cart[index].price;
+        cart.splice(index, 1);
+
+        // Update cart modal
+        updateCartModal();
+      });
+    }
+
+    // Open cart modal
+    $("#cartButton").click(function() {
+      $("#cartModal").fadeIn();
+    });
+
+    // Close cart modal
+    $("#closeCart").click(function() {
+      $("#cartModal").fadeOut();
+    });
+  </script>
+</body>
+</html>
