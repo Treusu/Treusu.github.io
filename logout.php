@@ -36,6 +36,6 @@ if (isset($_SESSION['userID'])) {
 }
 
 // Redirect to home page
-header("Location: Home.html");
+header("Location: home.html");
 exit();
 ?>
