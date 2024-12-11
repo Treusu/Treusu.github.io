@@ -234,7 +234,6 @@ if (isset($_SESSION['userID'])) {
     <div class="navbar-item">
       <a href="#menu">Home</a>
       <a href="#menu">Menu</a>
-      <a href="#contact">Contact Us</a>
     </div>
     <div class="navbar-item right">
       <button id="cartButton" class="cart-button">🛒</button>
