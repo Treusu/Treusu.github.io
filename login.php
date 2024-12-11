@@ -33,7 +33,7 @@ try {
             $stmt->execute();
 
             // Redirect to the logged-in page
-            header('Location: Logged_In.php');
+            header('Location: Logged_in.php');
         } else {
              "Invalid credentials!";
         }
